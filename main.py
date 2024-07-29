@@ -1,8 +1,7 @@
 import getpass
-import requests # type: ignore
 import time
 
-version = 1.0
+version = 1.1
 print()
 print("---------------ACCOUNT MANAGER---------------")
 print(f"Version = {version}")
@@ -50,9 +49,8 @@ print(f"Registered account successfully. Welcome, {user['username']}.")
 
 def help():
     name = getpass.getuser()
-    ip = requests.get('https://api.ipify.org').text
     while True == True:
-        print(f"Im coming to {ip}, {name}")
+        print(f"Im coming {name}")
         time.sleep(0.5)
 
 #LOG IN TO ACCOUNT CREATED
@@ -70,7 +68,6 @@ def login():
     
     print()
     print("Logged into account successfully.")
-    print()
 
 login()
 
@@ -79,15 +76,16 @@ login()
 commands = {
     "/changepassword" : "Change user's password.",
     "/changeusername" : "Change user's username.",
-    "/userinfo" : "Check user's information."
+    "/userinfo" : "Check user's information.",
+    "/login" : "Refresh login."
 }
 def helpCommand():
     print()
     print("---------------LIST OF COMMANDS---------------")
     for cmd in (commands):
-        print(cmd)
+        print(cmd, end=": ")
+        print(commands[cmd])
     print("More commands to be added in the future.")
-    print()
 
 def changePassword():
     print()
@@ -98,8 +96,8 @@ def changePassword():
         print()
         oldPass = input("Enter old password: ")
     newPass = input("Enter a new password: ")
-    while len(newPass) < 8:
-        print("Password should be at least 8 characters.")
+    while len(newPass) < 8 or newPass == user["password"]:
+        print("Password should be at least 8 characters and can't be the same as the old one.")
         print()
         newPass = input("Enter a new password: ")
     print()
@@ -110,8 +108,8 @@ def changeUsername():
     print()
     print("----------CHANGE USERNAME----------")
     newUser = input("Enter a new username (16 chars max): ")
-    while len(newUser) > 16:
-        print("Invalid username. Username shouldn't contain numbers, symbols or spaces.")
+    while len(newUser) > 16 or newUsername == user["username"]:
+        print("Invalid username. Username shouldn't contain numbers, symbols or spaces and can't be the same as the old one.")
         print()
         newPass = input("Enter a new username (15 chars max): ")
     print()
