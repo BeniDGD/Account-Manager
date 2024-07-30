@@ -8,4 +8,4 @@ Create an account, log in, edit credentials, and much more!
 
 As specified earlier, this project was coded in **python**. This is an early version of the project and expect more stuff to be added in the future!
 
-V.1.0
+V.1.1
